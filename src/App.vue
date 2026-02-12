@@ -1,5 +1,6 @@
 <script setup>
 import { onBeforeUnmount, onMounted, shallowRef } from 'vue'
+import HomePage from '@/views/HomePage.vue'
 
 let activeTab = shallowRef('details')
 let certificatesNum = shallowRef(10)
@@ -20,4 +21,5 @@ onBeforeUnmount(() => {
 
 <template>
 	<h1>Let's build some tabs!</h1>
+	<HomePage />
 </template>
