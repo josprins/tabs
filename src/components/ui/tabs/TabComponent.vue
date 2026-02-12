@@ -1,8 +1,12 @@
 <script setup>
-defineProps({
-	isActive: {
-		type: Boolean,
-		default: false,
+import { inject } from 'vue'
+
+const tabs = inject('tabs')
+
+const props = defineProps({
+	id: {
+		type: [String, Number],
+		required: true,
 	},
 	isDisabled: {
 		type: Boolean,
@@ -10,27 +14,54 @@ defineProps({
 	},
 	label: {
 		type: String,
-		required: true
+		required: true,
+	},
+	isRouterLink: {
+		type: Boolean,
+		default: false,
+	},
+	linkParams: {
+		type: Object,
+		default: () => ({}),
 	},
 })
+
+function handleSelect() {
+	if (!props.isDisabled) {
+		tabs.selectTab(props.id)
+	}
+}
 </script>
 
 <template>
-	<button :class="{ active: isActive, disabled: isDisabled }">
-		{{ label }}
-	</button>
+	<div>
+		<router-link
+			v-if="isRouterLink"
+			:to="linkParams"
+			:class="{ active: tabs.isActive(id), disabled: isDisabled }"
+			@click="handleSelect"
+		>
+			{{ label }}
+		</router-link>
+		<button
+			v-else
+			:class="{ active: tabs.isActive(id), disabled: isDisabled }"
+			:disabled="isDisabled"
+			@click="handleSelect"
+		>
+			{{ label }}
+		</button>
+	</div>
 </template>
 
 <style scoped>
 button {
-
 }
 
 button.active {
-
+	background-color: var(--accent);
 }
 
 button.disabled {
-
 }
 </style>

@@ -3,5 +3,8 @@
   "semi": false,
   "singleQuote": true,
   "printWidth": 100,
-  "indent": "tab"
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "arrowParens": "always",
+  "endOfLine": "lf"
 }
